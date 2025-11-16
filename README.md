@@ -1,5 +1,5 @@
 
-# MQTT + Node-RED Stack for IoT Garden Sprinkler
+# MQTT + Node-RED Stack (Docker)
 
 This repository contains a minimal, production-ish setup for:
 
