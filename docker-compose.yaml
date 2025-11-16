@@ -1,0 +1,34 @@
+services:
+  mosquitto:
+    image: eclipse-mosquitto:2
+    container_name: mqtt_server-mosquitto
+    restart: unless-stopped
+    ports:
+      - "1883:1883"
+      # (optional TLS later) - "8883:8883"
+    volumes:
+      # - ./mosquitto/mosquitto.conf:/mosquitto/config/mosquitto.conf:ro
+      # - ./mosquitto/passwords:/mosquitto/config/passwords:ro
+      # - ./mosquitto/acl:/mosquitto/config/acl:ro
+      - ./mosquitto/config:/mosquitto/config/
+      - mosqdata:/mosquitto/data
+      - mosqlog:/mosquitto/log
+    environment:
+      - TZ=Asia/Jakarta
+
+  nodered:
+    image: nodered/node-red:latest
+    container_name: nodered
+    restart: unless-stopped
+    ports:
+      - "1880:1880"   # Node-RED editor & dashboard
+    volumes:
+      - ./nodered_data:/data
+    environment:
+      - TZ=Asia/Jakarta
+    depends_on:
+      - mosquitto
+
+volumes:
+  mosqdata: {}
+  mosqlog: {}
