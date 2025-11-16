@@ -21,9 +21,10 @@ After cloning the repo, the relevant files look like this:
 .
 ├── docker-compose.yaml
 └── mosquitto/
-    ├── mosquitto.conf   # Mosquitto broker configuration
-    ├── passwords        # Username/password file (hashed)
-    └── acl              # ACL rules for topic access
+    └── conf/
+        ├──mosquitto.conf   # Mosquitto broker configuration
+        ├── passwords        # Username/password file (hashed)
+        └── acl              # ACL rules for topic access
 ```
 
 Named Docker volumes will be created automatically:
@@ -63,9 +64,7 @@ services:
       - "1883:1883"          # MQTT (plain TCP)
       # later you can add TLS: - "8883:8883"
     volumes:
-      - ./mosquitto/mosquitto.conf:/mosquitto/config/mosquitto.conf:ro
-      - ./mosquitto/passwords:/mosquitto/config/passwords:ro
-      - ./mosquitto/acl:/mosquitto/config/acl:ro
+      - ./mosquitto/confif:/mosquitto/config/
       - mosqdata:/mosquitto/data
       - mosqlog:/mosquitto/log
     environment:
